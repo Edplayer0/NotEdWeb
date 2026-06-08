@@ -8,9 +8,13 @@ exports.verifyUser = async (user) => {
   return false;
 };
 
-exports.verifyCookie = async (user, token) => {
-  let dbSession = await db.getSession(user);
-  if (dbSession[0] !== token) return false;
-  if (dbSession[1] < new Date()) return false;
+exports.verifyToken = async (user, token) => {
+  const dbSession = await db.getSession(user);
+
+  if (!dbSession) return false;
+
+  if (dbSession.token !== token) return false;
+  if (new Date(dbSession.expires_at) < new Date()) return false;
+
   return true;
 };

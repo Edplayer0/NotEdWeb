@@ -58,7 +58,7 @@ exports.getSession = async (username) => {
   const connection = await pool.getConnection();
 
   try {
-    const result = await connection.query(
+    const [result] = await connection.query(
       "SELECT s.token, s.expires_at FROM sessions as s JOIN users as u ON s.user_id = u.id WHERE u.username = ?;",
       [username]
     );

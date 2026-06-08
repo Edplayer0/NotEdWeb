@@ -21,7 +21,7 @@ app.get(
 
     if (Object.keys(req.cookies).length !== 2) return next();
 
-    let verifiedCookie = await auth.verifyCookie(req.cookies);
+    let verifiedCookie = await auth.verifyToken(req.cookies.user, req.cookies.token);
 
     if (!verifiedCookie) return next();
     res.render("dashboard");
@@ -45,7 +45,7 @@ app.post("/", async (req, res) => {
 
     const options = {
        httpOnly: true,
-       // expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toUTCString(),
+       expires: expiration
     };
 
     res.cookie("user", data.user, options);
