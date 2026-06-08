@@ -1,0 +1,146 @@
+:root {
+    --main-color: #FFEE8C
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.header {
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.header__title, .header__subtitle {
+    margin: 0;
+    padding: 0;
+}
+
+.header__title {
+    font-size: 1.7rem;
+}
+
+.header__subtitle {
+    font-weight: 100;
+    font-size: 1.2rem;
+}
+
+/* Navigation Block */
+.nav {
+  display: none;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav__item {
+  position: relative;
+}
+
+.nav__link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav__link:hover {
+    border-bottom-color: #fff;
+}
+
+.nav__link--active {
+    border-bottom-color: #fff;
+}
+
+.signin {
+    background-color: #fff;
+    color: var(--main-color);
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+
+.signin:hover {
+    background-color: transparent;
+    color: #fff;
+    outline: 2px solid #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header__menu-toggle {
+    background-color: transparent;
+    color: #fff;
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+}
+
+.header__menu-icon {
+    font-size: 2rem !important;
+    font-weight: bold !important;
+}
+
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    background-color: #aaa;
+    color: #fff;
+}
+
+/* INTRODUCTORY PAGE */
+
+.introduction {
+    display: grid;
+    gap: 10px;
+    margin: 10px;
+    grid-template-columns: 1fr;
+    place-content: center;
+}
+
+.introduction:nth-child(3) {
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.container {
+    box-sizing: border-box;
+    background-color: #efefef;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .header__menu-toggle {
+    display: none;
+  }
+
+  .nav {
+    display: block;
+  }
+
+  .introduction {
+    grid-template-columns: minmax(300px, 500px) minmax(200px, 300px);
+  }
+
+}

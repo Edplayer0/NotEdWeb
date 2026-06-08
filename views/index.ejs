@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <title>NotEd: secure note-taking</title>
+  </head>
+  <body>
+    <%- include("partials/header") %>
+
+    <main>
+      <% if (!account) { %>
+
+      <div class="introduction">
+        <%- include("partials/intro") %><%- include("partials/intro") %><%-
+        include("partials/intro") %>
+      </div>
+
+      <% } else { %>
+
+      <p>Notes</p>
+
+      <% } %>
+    </main>
+
+    <%- include("partials/footer") %>
+  </body>
+</html>

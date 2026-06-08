@@ -15,19 +15,29 @@ app.use(cookieParser());
 app.use(express.urlencoded());
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  res.render("index", { account: false });
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 app.get(
   "/",
   async (req, res, next) => {
-
     if (Object.keys(req.cookies).length !== 2) return next();
 
-    let verifiedCookie = await auth.verifyToken(req.cookies.user, req.cookies.token);
+    let verifiedCookie = await auth.verifyToken(
+      req.cookies.user,
+      req.cookies.token
+    );
 
     if (!verifiedCookie) return next();
-    res.render("dashboard");
+    res.render("index", { account: true });
   },
   (req, res) => {
-    res.render("login");
+    res.render("index", { account: false });
   }
 );
 
@@ -37,15 +47,14 @@ app.post("/", async (req, res) => {
   let authenticated = await auth.verifyUser(data);
 
   if (authenticated) {
-
     let expiration = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
 
     let token = Math.random();
     db.setSession(data.user, token, expiration);
 
     const options = {
-       httpOnly: true,
-       expires: expiration
+      httpOnly: true,
+      expires: expiration,
     };
 
     res.cookie("user", data.user, options);
