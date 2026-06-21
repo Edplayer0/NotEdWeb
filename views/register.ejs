@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style/style.css" />
-    <title>NotEd - Log In</title>
+    <title>NotEd - Register</title>
   </head>
   <body>
     <%- include("partials/header.ejs") %>
-    <main>
-    <div class="container centered-container">
-      <form method="POST" action="/signin" class="form">
-	<h2 class="centered-container__title">Log In</h2>
+    <main class="container centered-container">
+      <form method="POST" action="/signup" class="form">
+	<h2 class="centered-container__title">Create an account</h2>
 	<label for="name-input">Username:</label>
         <input
           class="form__input"
@@ -21,7 +20,7 @@
           id="name-input"
           required
         />
-	<label for="passwors-input">Password:</label>
+	<label for="password-input">Password:</label>
         <input
           class="form__input"
           type="password"
@@ -30,10 +29,13 @@
           id="password-input"
           required
         />
+	<label class="terms-label">
+	    <input type="checkbox" id="terms-input" required />
+	    <div class="switcher"></div>
+	    I agree to the terms and conditions
+	</label>
         <input class="form__button" type="submit" id="submit-input" value="Send" />
       </form>
-    </div>
-    <p class="centered-container text-center" style="margin-top: 10px;">Don't you have an account? Create one for free: <a href="/register" class="link">Sign Up</a></p>
     </main>
 
     <%- include("partials/footer.ejs") %>

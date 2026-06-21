@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/style.css" />
+    <title>Account wasn't created</title>
+  </head>
+  <body>
+    <%- include("partials/simple-header.ejs") %>
+
+    <main>
+      <div class="container centered-container">
+	<h3 class="centered-container__title">An error has ocurred</h3>
+	<p class="text-center"><a class="link" href="#">Click</a> to try again, if the error persist, please contact support.</p>
+	<h4 class="text-center">Or try:</h4>
+	<ul>
+          <li>Introducing valid data</li>
+	  <li>Trying with another username</li>
+	  <li>Verifying your inputs's lengths</li>
+	</ul>
+      <div>
+    </main>
+
+    <%- include("partials/footer.ejs") %>
+
+    <script src="script/account-redirection.js"></script>
+  </body>
+</html>

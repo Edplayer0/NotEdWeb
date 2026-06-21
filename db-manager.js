@@ -59,10 +59,10 @@ exports.getSession = async (username) => {
 
   try {
     const [result] = await connection.query(
-      "SELECT s.token, s.expires_at FROM sessions as s JOIN users as u ON s.user_id = u.id WHERE u.username = ?;",
+      "SELECT s.id, s.token, s.expires_at FROM sessions as s JOIN users as u ON s.user_id = u.id WHERE u.username = ? ORDER BY s.id DESC;",
       [username]
     );
-    return result[0];
+    return result;
   } catch (error) {
     console.error("Error: ", error);
   } finally {

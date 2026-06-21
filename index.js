@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
@@ -15,17 +15,10 @@ app.use(cookieParser());
 app.use(express.urlencoded());
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.render("index", { account: false });
-});
-
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
 app.get(
   "/",
   async (req, res, next) => {
+
     if (Object.keys(req.cookies).length !== 2) return next();
 
     let verifiedCookie = await auth.verifyToken(
@@ -34,14 +27,23 @@ app.get(
     );
 
     if (!verifiedCookie) return next();
+
     res.render("index", { account: true });
   },
   (req, res) => {
-    res.render("index", { account: false });
+    res.render("index", { account: true });
   }
 );
 
-app.post("/", async (req, res) => {
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
+app.post("/signin", async (req, res) => {
   let data = req.body;
 
   let authenticated = await auth.verifyUser(data);
@@ -65,6 +67,16 @@ app.post("/", async (req, res) => {
     res.writeHead(400);
   }
   res.end();
+});
+
+app.post("/signup", async (req, res) => {
+  let data = req.body;
+
+  let result = await auth.createUser(data);
+
+  if (result) res.render("new-account-success")
+  else res.render("new-account-error");
+
 });
 
 app.listen(process.env.APP_PORT, () =>

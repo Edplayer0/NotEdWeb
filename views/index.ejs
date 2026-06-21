@@ -13,20 +13,18 @@
   <body>
     <%- include("partials/header") %>
 
-    <main>
       <% if (!account) { %>
 
-      <div class="introduction">
+      <main class="introduction">
         <%- include("partials/intro") %><%- include("partials/intro") %><%-
         include("partials/intro") %>
-      </div>
+      </main>
 
       <% } else { %>
 
-      <p>Notes</p>
+      <%- include("partials/dashboard") %>
 
       <% } %>
-    </main>
 
     <%- include("partials/footer") %>
   </body>

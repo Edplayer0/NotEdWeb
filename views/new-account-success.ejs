@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/style.css" />
+    <title>Account created</title>
+  </head>
+  <body>
+    <%- include("partials/simple-header.ejs") %>
+
+    <main>
+      <div class="container centered-container">
+        <h3 class="centered-container__title">Account created successfully</h3>
+	<p>Redirecting...</p>
+	<div class="counter-circle">
+          <p id="counter">5</p>
+	</div>
+	<p class="text-center"><a class="link" href="/login">Click</a> if do not redirect automatically</p>
+      <div>
+    </main>
+
+    <%- include("partials/footer.ejs") %>
+
+    <script src="script/account-redirection.js"></script>
+  </body>
+</html>
