@@ -1,13 +1,13 @@
-<header class="header">
-  <div class="header__container">
-    <h1 class="header__title">NotEd</h1>
-    <h2 class="header__subtitle">Secure note-taking</h2>
+<header class="bg-yellow-200 flex p-2 justify-between items-center">
+  <div class="flex flex-col">
+    <h1 class="text-2xl font-bold">NotEd</h1>
+    <h2 class="text-md font-thin">Secure note-taking</h2>
   </div>
 
-  <nav class="nav">
-    <ul class="nav__list">
-      <li class="nav__item">
-        <a href="#home" class="nav__link nav__link--active">Home</a>
+  <nav class="hidden md:block pr-3">
+    <ul class="flex gap-5">
+      <li>
+        <a href="#home" class="px-2 py-1 hover:bg-gray-800 hover:text-yellow-200">Home</a>
       </li>
       <li class="nav__item">
         <a href="#features" class="nav__link">Features</a>
@@ -24,15 +24,15 @@
     </ul>
   </nav>
 
-  <label class="header__menu-toggle" aria-label="Toggle menu">
-    <input type="checkbox" id="menu-toggle" />
+  <label class="md:hidden" aria-label="Toggle menu">
+    <input type="checkbox" id="menu-toggle" class="hidden"/>
     <span class="material-icons header__menu-icon">menu</span>
   </label>
 </header>
 
 <!-- MOBILE MENU -->
 
-<nav class="mobile-nav">
+<nav class="mobile-nav hidden">
     <ul class="mobile-nav__list">
       <li class="mobile-nav__item">
         <a href="#home" class="mobile-nav__link mobile-nav__link--active">Home</a>

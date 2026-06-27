@@ -10,14 +10,15 @@
     />
     <title>NotEd: secure note-taking</title>
   </head>
-  <body>
+  <body class="text-gray-800">
     <%- include("partials/header") %>
+
+      <div class="w-10 h-10 bg-yellow-200 active:bg-red-600"></div>
 
       <% if (!account) { %>
 
-      <main class="introduction">
-        <%- include("partials/intro") %><%- include("partials/intro") %><%-
-        include("partials/intro") %>
+      <main>
+        <%- include("partials/intro") %>
       </main>
 
       <% } else { %>

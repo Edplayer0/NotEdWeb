@@ -4,7 +4,9 @@
   "description": "A web version of the NotEd desktop application.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tailwindcss -i src/input.css -o public/style/style.css --watch",
+    "build": "tailwindcss -i src/input.css -o public/style/style.css --minify"
   },
   "keywords": [
     "note-taking",
@@ -15,11 +17,16 @@
   "author": "Edplayer0",
   "license": "MIT",
   "dependencies": {
+    "@tailwindcss/cli": "^4.3.1",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "mysql2": "^3.22.4"
+  },
+  "devDependencies": {
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.1"
   }
 }

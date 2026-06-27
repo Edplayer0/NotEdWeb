@@ -31,7 +31,7 @@ app.get(
     res.render("index", { account: true });
   },
   (req, res) => {
-    res.render("index", { account: true });
+    res.render("index", { account: false });
   }
 );
 
