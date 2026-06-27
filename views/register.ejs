@@ -6,37 +6,77 @@
     <link rel="stylesheet" href="style/style.css" />
     <title>NotEd - Register</title>
   </head>
-  <body>
+  <body class="text-gray-800 min-h-screen flex flex-col bg-gray-50">
     <%- include("partials/header.ejs") %>
-    <main class="container centered-container">
-      <form method="POST" action="/signup" class="form">
-	<h2 class="centered-container__title">Create an account</h2>
-	<label for="name-input">Username:</label>
-        <input
-          class="form__input"
-          type="text"
-          name="user"
-          placeholder="John Doe..."
-          id="name-input"
-          required
-        />
-	<label for="password-input">Password:</label>
-        <input
-          class="form__input"
-          type="password"
-          name="password"
-          placeholder="12345..."
-          id="password-input"
-          required
-        />
-	<label class="terms-label">
-	    <input type="checkbox" id="terms-input" required />
-	    <div class="switcher"></div>
-	    I agree to the terms and conditions
-	</label>
-        <input class="form__button" type="submit" id="submit-input" value="Send" />
-      </form>
+
+    <main class="flex flex-1 items-center justify-center px-4 py-10">
+      <div
+        class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg border border-gray-200"
+      >
+        <form method="POST" action="/signup" class="flex flex-col gap-4">
+          <h2 class="text-center text-3xl font-bold text-gray-900">
+            Create an account
+          </h2>
+
+          <div class="flex flex-col gap-2">
+            <label for="name-input" class="text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-yellow-200 focus:ring-2 focus:ring-yellow-200"
+              type="text"
+              name="user"
+              placeholder="John Doe..."
+              id="name-input"
+              required
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label
+              for="password-input"
+              class="text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-yellow-200 focus:ring-2 focus:ring-yellow-200"
+              type="password"
+              name="password"
+              placeholder="12345..."
+              id="password-input"
+              required
+            />
+          </div>
+
+          <label
+            class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer select-none"
+          >
+            <input
+              type="checkbox"
+              id="terms-input"
+              required
+              class="h-4 w-4 rounded border-gray-300 text-yellow-200 focus:ring-yellow-200"
+            />
+            <span>I agree to the terms and conditions</span>
+          </label>
+
+          <input
+            class="mt-2 cursor-pointer rounded-xl bg-yellow-200 py-3 font-semibold text-gray-800 transition hover:bg-yellow-300 active:scale-[0.99]"
+            type="submit"
+            id="submit-input"
+            value="Send"
+          />
+        </form>
+      </div>
     </main>
+
+    <p class="mb-8 text-center text-sm text-gray-600">
+      Already have an account?
+      <a href="/login" class="font-medium text-yellow-300 hover:underline">
+        Log In
+      </a>
+    </p>
 
     <%- include("partials/footer.ejs") %>
   </body>

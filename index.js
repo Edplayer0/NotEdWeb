@@ -18,7 +18,6 @@ app.use(express.static("public"));
 app.get(
   "/",
   async (req, res, next) => {
-
     if (Object.keys(req.cookies).length !== 2) return next();
 
     let verifiedCookie = await auth.verifyToken(
@@ -74,9 +73,8 @@ app.post("/signup", async (req, res) => {
 
   let result = await auth.createUser(data);
 
-  if (result) res.render("new-account-success")
+  if (result) res.render("new-account-success");
   else res.render("new-account-error");
-
 });
 
 app.listen(process.env.APP_PORT, () =>

@@ -6,35 +6,63 @@
     <link rel="stylesheet" href="style/style.css" />
     <title>NotEd - Log In</title>
   </head>
-  <body>
+  <body class="text-gray-800 min-h-screen flex flex-col bg-gray-50">
     <%- include("partials/header.ejs") %>
-    <main>
-    <div class="container centered-container">
-      <form method="POST" action="/signin" class="form">
-	<h2 class="centered-container__title">Log In</h2>
-	<label for="name-input">Username:</label>
-        <input
-          class="form__input"
-          type="text"
-          name="user"
-          placeholder="John Doe..."
-          id="name-input"
-          required
-        />
-	<label for="passwors-input">Password:</label>
-        <input
-          class="form__input"
-          type="password"
-          name="password"
-          placeholder="12345..."
-          id="password-input"
-          required
-        />
-        <input class="form__button" type="submit" id="submit-input" value="Send" />
-      </form>
-    </div>
-    <p class="centered-container text-center" style="margin-top: 10px;">Don't you have an account? Create one for free: <a href="/register" class="link">Sign Up</a></p>
+
+    <main class="flex flex-1 items-center justify-center px-4 py-10">
+      <div
+        class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg border border-gray-200"
+      >
+        <form method="POST" action="/signin" class="flex flex-col gap-4">
+          <h2 class="text-center text-3xl font-bold text-gray-900">Log In</h2>
+
+          <div class="flex flex-col gap-2">
+            <label for="name-input" class="text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-yellow-200 focus:ring-2 focus:ring-yellow-200"
+              type="text"
+              name="user"
+              placeholder="John Doe..."
+              id="name-input"
+              required
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label
+              for="password-input"
+              class="text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-yellow-200 focus:ring-2 focus:ring-yellow-200"
+              type="password"
+              name="password"
+              placeholder="12345..."
+              id="password-input"
+              required
+            />
+          </div>
+
+          <input
+            class="mt-2 cursor-pointer rounded-xl bg-yellow-200 py-3 font-semibold text-gray-800 transition hover:bg-yellow-200 active:scale-[0.99]"
+            type="submit"
+            id="submit-input"
+            value="Send"
+          />
+        </form>
+      </div>
     </main>
+
+    <p class="mb-8 text-center text-sm text-gray-600">
+      Don't you have an account? Create one for free:
+      <a href="/register" class="font-medium text-yellow-300 hover:underline"
+        >Sign Up</a
+      >
+    </p>
 
     <%- include("partials/footer.ejs") %>
   </body>

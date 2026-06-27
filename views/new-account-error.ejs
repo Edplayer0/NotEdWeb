@@ -6,24 +6,34 @@
     <link rel="stylesheet" href="style/style.css" />
     <title>Account wasn't created</title>
   </head>
-  <body>
+  <body class="text-gray-800 min-h-screen flex flex-col bg-gray-50">
     <%- include("partials/simple-header.ejs") %>
 
-    <main>
-      <div class="container centered-container">
-	<h3 class="centered-container__title">An error has ocurred</h3>
-	<p class="text-center"><a class="link" href="#">Click</a> to try again, if the error persist, please contact support.</p>
-	<h4 class="text-center">Or try:</h4>
-	<ul>
-          <li>Introducing valid data</li>
-	  <li>Trying with another username</li>
-	  <li>Verifying your inputs's lengths</li>
-	</ul>
-      <div>
+    <main class="flex flex-1 items-center justify-center px-4 py-10">
+      <div
+        class="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg border border-gray-200"
+      >
+        <h3 class="mb-3 text-3xl font-bold text-gray-900">
+          An error has occurred
+        </h3>
+
+        <p class="mb-6 text-gray-600">
+          <a class="font-medium text-yellow-500 hover:underline" href="#">
+            Click here
+          </a>
+          to try again. If the error persists, please contact support.
+        </p>
+
+        <h4 class="mb-4 text-lg font-semibold text-gray-800">Or try:</h4>
+
+        <ul class="space-y-2 text-left text-gray-600">
+          <li>• Introducing valid data</li>
+          <li>• Trying another username</li>
+          <li>• Verifying your input lengths</li>
+        </ul>
+      </div>
     </main>
 
     <%- include("partials/footer.ejs") %>
-
-    <script src="script/account-redirection.js"></script>
   </body>
 </html>

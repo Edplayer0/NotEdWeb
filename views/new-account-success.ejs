@@ -6,18 +6,32 @@
     <link rel="stylesheet" href="style/style.css" />
     <title>Account created</title>
   </head>
-  <body>
+  <body class="text-gray-800 min-h-screen flex flex-col bg-gray-50">
     <%- include("partials/simple-header.ejs") %>
 
-    <main>
-      <div class="container centered-container">
-        <h3 class="centered-container__title">Account created successfully</h3>
-	<p>Redirecting...</p>
-	<div class="counter-circle">
-          <p id="counter">5</p>
-	</div>
-	<p class="text-center"><a class="link" href="/login">Click</a> if do not redirect automatically</p>
-      <div>
+    <main class="flex flex-1 items-center justify-center px-4 py-10">
+      <div
+        class="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg border border-gray-200"
+      >
+        <h3 class="mb-3 text-3xl font-bold text-gray-900">
+          Account created successfully
+        </h3>
+
+        <p class="mb-6 text-gray-600">Redirecting...</p>
+
+        <div
+          class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-yellow-200 bg-yellow-50"
+        >
+          <p id="counter" class="text-3xl font-bold text-gray-800">5</p>
+        </div>
+
+        <p class="text-sm text-gray-600">
+          If you are not redirected automatically,
+          <a class="font-medium text-yellow-500 hover:underline" href="/login">
+            click here
+          </a>
+        </p>
+      </div>
     </main>
 
     <%- include("partials/footer.ejs") %>

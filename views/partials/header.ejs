@@ -1,52 +1,80 @@
-<header class="bg-yellow-200 flex p-2 justify-between items-center">
-  <div class="flex flex-col">
-    <h1 class="text-2xl font-bold">NotEd</h1>
-    <h2 class="text-md font-thin">Secure note-taking</h2>
+<header class="border-b border-gray-800 bg-yellow-200">
+  <div
+    class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+  >
+    <div class="flex flex-col">
+      <h1 class="text-2xl font-bold tracking-tight text-gray-800">NotEd</h1>
+      <h2 class="text-sm text-gray-800/80">Secure note-taking</h2>
+    </div>
+
+    <nav class="hidden sm:block">
+      <ul class="flex items-center gap-6">
+        <li>
+          <a
+            href="#home"
+            class="border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-800 transition hover:border-gray-800"
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            href="#features"
+            class="border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-800 transition hover:border-gray-800"
+          >
+            Features
+          </a>
+        </li>
+        <li>
+          <a
+            href="#download"
+            class="border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-800 transition hover:border-gray-800"
+          >
+            Download
+          </a>
+        </li>
+        <li>
+          <a
+            href="#about"
+            class="border-b-2 border-transparent px-1 py-2 text-sm font-medium text-gray-800 transition hover:border-gray-800"
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a
+            href="/login"
+            class="rounded-xl border border-gray-800 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:bg-gray-800 hover:text-yellow-200"
+          >
+            Sign In
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <button
+      id="menu-button"
+      type="button"
+      class="rounded-xl p-2 text-gray-800 hover:bg-yellow-300 sm:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="material-icons text-3xl" id="menu-icon">menu</span>
+    </button>
   </div>
 
-  <nav class="hidden md:block pr-3">
-    <ul class="flex gap-5">
-      <li>
-        <a href="#home" class="px-2 py-1 hover:bg-gray-800 hover:text-yellow-200">Home</a>
-      </li>
-      <li class="nav__item">
-        <a href="#features" class="nav__link">Features</a>
-      </li>
-      <li class="nav__item">
-        <a href="#download" class="nav__link">Download</a>
-      </li>
-      <li class="nav__item">
-        <a href="#about" class="nav__link">About</a>
-      </li>
-      <li class="nav__item">
-        <a href="/login" class="nav__link signin">Sign In</a>
-      </li>
+  <nav id="mobile-menu" class="hidden sm:hidden px-4 pb-4">
+    <ul
+      class="mt-2 space-y-3 rounded-2xl border border-gray-800 bg-yellow-100 p-4"
+    >
+      <li><a href="#home" class="block text-gray-800">Home</a></li>
+      <li><a href="#features" class="block text-gray-800">Features</a></li>
+      <li><a href="#download" class="block text-gray-800">Download</a></li>
+      <li><a href="#about" class="block text-gray-800">About</a></li>
+      <li><a href="/login" class="block text-gray-800">Sign In</a></li>
     </ul>
   </nav>
 
-  <label class="md:hidden" aria-label="Toggle menu">
-    <input type="checkbox" id="menu-toggle" class="hidden"/>
-    <span class="material-icons header__menu-icon">menu</span>
-  </label>
+  <script src="script/menu.js"></script>
 </header>
-
-<!-- MOBILE MENU -->
-
-<nav class="mobile-nav hidden">
-    <ul class="mobile-nav__list">
-      <li class="mobile-nav__item">
-        <a href="#home" class="mobile-nav__link mobile-nav__link--active">Home</a>
-      </li>
-      <li class="mobile-nav__item">
-        <a href="#features" class="mobile-nav__link">Features</a>
-      </li>
-      <li class="mobile-nav__item">
-        <a href="#download" class="mobile-nav__link">Download</a>                                                            </li>
-      <li class="mobile-nav__item">
-        <a href="#about" class="mobile-nav__link">About</a>
-      </li>
-      <li class="mobile-nav__item">
-        <a href="/login" class="mobile-nav__link">Sign In</a>
-      </li>
-    </ul>
-</nav>
