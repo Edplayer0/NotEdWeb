@@ -1,5 +1,6 @@
 require("dotenv").config({ quiet: true });
 
+const crypto = require("crypto");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
@@ -12,22 +13,26 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(cookieParser());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
 app.get(
   "/",
   async (req, res, next) => {
-    if (Object.keys(req.cookies).length !== 2) return next();
+    if (!req.cookies.user || !req.cookies.token) return next();
 
-    let verifiedCookie = await auth.verifyToken(
-      req.cookies.user,
-      req.cookies.token
-    );
+    try {
+      const verifiedCookie = await auth.verifyToken(
+        req.cookies.user,
+        req.cookies.token
+      );
 
-    if (!verifiedCookie) return next();
+      if (!verifiedCookie) return next();
 
-    res.render("index", { account: true });
+      return res.render("index", { account: true });
+    } catch {
+      return next();
+    }
   },
   (req, res) => {
     res.render("index", { account: false });
@@ -43,40 +48,39 @@ app.get("/register", (req, res) => {
 });
 
 app.post("/signin", async (req, res) => {
-  let data = req.body;
-
-  let authenticated = await auth.verifyUser(data);
+  const data = req.body;
+  const authenticated = await auth.verifyUser(data);
 
   if (authenticated) {
-    let expiration = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+    const expiration = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+    const token = crypto.randomBytes(32).toString("hex");
 
-    let token = Math.random();
-    db.setSession(data.user, token, expiration);
+    await db.setSession(data.user, token, expiration);
 
     const options = {
       httpOnly: true,
       expires: expiration,
+      sameSite: "lax",
     };
 
     res.cookie("user", data.user, options);
     res.cookie("token", token, options);
 
-    res.writeHead(200);
-  } else {
-    res.writeHead(400);
+    return res.sendStatus(200);
   }
-  res.end();
+
+  return res.sendStatus(400);
 });
 
 app.post("/signup", async (req, res) => {
-  let data = req.body;
+  const data = req.body;
+  const result = await auth.createUser(data);
 
-  let result = await auth.createUser(data);
-
-  if (result) res.render("new-account-success");
-  else res.render("new-account-error");
+  if (result) return res.render("new-account-success");
+  return res.render("new-account-error");
 });
 
 app.listen(process.env.APP_PORT, () =>
   console.log(`Listening on port ${process.env.APP_PORT}`)
 );
+
