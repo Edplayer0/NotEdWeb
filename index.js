@@ -29,7 +29,9 @@ app.get(
 
       if (!verifiedCookie) return next();
 
-      return res.render("index", { account: true });
+      const notes = await db.getNotes(req.cookies.user);
+
+      return res.render("index", { account: true, notes });
     } catch {
       return next();
     }
@@ -45,6 +47,10 @@ app.get("/login", (req, res) => {
 
 app.get("/register", (req, res) => {
   res.render("register");
+});
+
+app.get("/features", (req, res) => {
+  res.render("index", { account: false });
 });
 
 app.post("/signin", async (req, res) => {

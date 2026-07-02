@@ -9,6 +9,7 @@ const pool = mysql.createPool({
 
 exports.getUser = async (username) => {
   const connection = await pool.getConnection();
+
   try {
     const [result] = await connection.query(
       "SELECT * FROM users WHERE username = ?;",
@@ -24,6 +25,7 @@ exports.getUser = async (username) => {
 
 exports.createUser = async (username, password) => {
   const connection = await pool.getConnection();
+
   try {
     const result = await connection.query(
       "INSERT INTO users (username, password) VALUES (?, ?);",
@@ -65,6 +67,40 @@ exports.getSession = async (username) => {
     return result;
   } catch (error) {
     console.error("Error: ", error);
+  } finally {
+    connection.release();
+  }
+};
+
+exports.getNotes = async (username) => {
+  const connection = await pool.getConnection();
+
+  try {
+    const [result] = await connection.query(
+      "SELECT n.id, n.title, DATE_FORMAT(n.date, '%d/%m/%y') as date FROM notes as n JOIN users as u ON n.user_id = u.id WHERE u.username = ? ORDER BY n.date DESC;",
+      [username]
+    );
+    return result;
+  } catch(error) {
+    console.error("Error: ", error);
+  } finally {
+    connection.release();
+  }
+};
+
+exports.newNote = async (user_id, title, content) => {
+  const date = "2026-01-07";
+
+  const connection = await pool.getConnection();
+
+  try {
+    const [result] = await connection.query(
+      "INSERT INTO notes (user_id, title, date, content) VALUES (?, ?, ?, ?);",
+      [user_id, title, date, content]
+    );
+    return result;
+  } catch(error) {
+    console.log("Error: ", error);
   } finally {
     connection.release();
   }
