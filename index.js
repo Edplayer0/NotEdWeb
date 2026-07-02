@@ -53,6 +53,10 @@ app.get("/features", (req, res) => {
   res.render("index", { account: false });
 });
 
+app.get("/editor", (req, res) => {
+  res.render("editor");
+});
+
 app.post("/signin", async (req, res) => {
   const data = req.body;
   const authenticated = await auth.verifyUser(data);
@@ -89,4 +93,3 @@ app.post("/signup", async (req, res) => {
 app.listen(process.env.APP_PORT, () =>
   console.log(`Listening on port ${process.env.APP_PORT}`)
 );
-
