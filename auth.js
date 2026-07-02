@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const db = require("./db-manager");
 
 exports.verifyUser = async (user) => {
-
   const realUser = await db.getUser(user.user);
 
   if (!realUser) return false;
@@ -13,7 +12,6 @@ exports.verifyUser = async (user) => {
 };
 
 exports.createUser = async (user) => {
-
   let saltRound = 12;
 
   let validData = true;
@@ -25,24 +23,29 @@ exports.createUser = async (user) => {
   db.createUser(user.user, user.password);
 
   return true;
-  
-}
+};
 
-exports.verifyToken = async (user, token) => {
+exports.verifyToken = async (req, res, next) => {
+  if (!req.cookies.user || !req.cookies.token) {
+    return res.render("index", { account: false });
+  }
+
+  const user = req.cookies.user;
+  const token = req.cookies.token;
   const dbSessions = await db.getSession(user);
 
-  if (!dbSessions) return false;
+  if (!dbSessions) {
+    return res.render("index", { account: false });
+  }
 
-  let currentDate = new Date();
+  const currentDate = new Date();
 
-  for (session of dbSessions) {
-
+  for (const session of dbSessions) {
     if (session.token !== token) continue;
     if (new Date(session.expires_at) < currentDate) continue;
 
-    return true;
-
+    return next();
   }
 
-  return false;
+  return res.render("index", { account: false });
 };
