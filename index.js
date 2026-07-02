@@ -33,8 +33,12 @@ app.get("/features", (req, res) => {
   res.render("index", { account: false });
 });
 
-app.get("/editor", (req, res) => {
-  res.render("editor");
+app.get("/editor", auth.verifyToken, async (req, res) => {
+  const { id } = req.params.id;
+
+  const note = db.getNote(id);
+
+  res.render("editor", { note });
 });
 
 app.post("/signin", async (req, res) => {

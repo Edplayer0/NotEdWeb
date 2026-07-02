@@ -43,7 +43,11 @@ exports.setSession = async (username, token, expiration) => {
   const connection = await pool.getConnection();
 
   try {
-    const userId = (await connection.query("SELECT * FROM users WHERE username = ?;", [username]))[0][0].id;
+    const userId = (
+      await connection.query("SELECT * FROM users WHERE username = ?;", [
+        username,
+      ])
+    )[0][0].id;
     const result = await connection.query(
       "INSERT INTO sessions (user_id, token, expires_at) VALUES (?, ?, ?);",
       [userId, token, expiration]
@@ -81,7 +85,23 @@ exports.getNotes = async (username) => {
       [username]
     );
     return result;
-  } catch(error) {
+  } catch (error) {
+    console.error("Error: ", error);
+  } finally {
+    connection.release();
+  }
+};
+
+exports.getNote = async (noteId) => {
+  const connection = await pool.getConnection();
+
+  try {
+    const [result] = await connection.query(
+      "SELECT title, date, content FROM notes WHERE id = ?;",
+      [noteId]
+    );
+    return result[0];
+  } catch (error) {
     console.error("Error: ", error);
   } finally {
     connection.release();
@@ -99,7 +119,7 @@ exports.newNote = async (user_id, title, content) => {
       [user_id, title, date, content]
     );
     return result;
-  } catch(error) {
+  } catch (error) {
     console.log("Error: ", error);
   } finally {
     connection.release();
