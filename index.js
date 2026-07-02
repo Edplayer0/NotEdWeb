@@ -16,30 +16,10 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
-app.get(
-  "/",
-  async (req, res, next) => {
-    if (!req.cookies.user || !req.cookies.token) return next();
-
-    try {
-      const verifiedCookie = await auth.verifyToken(
-        req.cookies.user,
-        req.cookies.token
-      );
-
-      if (!verifiedCookie) return next();
-
-      const notes = await db.getNotes(req.cookies.user);
-
-      return res.render("index", { account: true, notes });
-    } catch {
-      return next();
-    }
-  },
-  (req, res) => {
-    res.render("index", { account: false });
-  }
-);
+app.get("/", auth.verifyToken, async (req, res) => {
+  const notes = await db.getNotes(req.cookies.user);
+  res.render("index", { account: true, notes });
+});
 
 app.get("/login", (req, res) => {
   res.render("login");
