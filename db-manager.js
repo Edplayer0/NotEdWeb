@@ -97,7 +97,7 @@ exports.getNote = async (noteId) => {
 
   try {
     const [result] = await connection.query(
-      "SELECT title, date, content FROM notes WHERE id = ?;",
+      "SELECT title, DATE_FORMAT(date, '%d/%m/%y') as date, content FROM notes WHERE id = ?;",
       [noteId]
     );
     return result[0];

@@ -17,7 +17,7 @@
             <div class="space-y-2">
               <input
                 type="text"
-                value="<%= note.date %>"
+                value="<%= note.title %>"
                 class="w-full bg-transparent text-2xl font-semibold tracking-tight outline-none placeholder:text-gray-400"
               />
               <p class="text-gray-400"><%= note.date %></p>
@@ -56,7 +56,7 @@
                 class="inline-flex items-center gap-2 rounded-xl bg-yellow-200 px-4 py-2 text-sm font-medium text-gray-800 shadow-sm transition hover:opacity-90 ml-auto"
               >
                 <span class="material-icons text-[18px]">save</span>
-                Save
+		<span class="hidden sm:inline">Save</span>
               </button>
             </div>
           </div>
