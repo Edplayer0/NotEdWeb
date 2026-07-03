@@ -97,7 +97,7 @@ exports.getNote = async (noteId) => {
 
   try {
     const [result] = await connection.query(
-      "SELECT title, DATE_FORMAT(date, '%d/%m/%y') as date, content FROM notes WHERE id = ?;",
+      "SELECT id, title, DATE_FORMAT(date, '%d/%m/%y') as date, content FROM notes WHERE id = ?;",
       [noteId]
     );
     return result[0];
@@ -120,6 +120,22 @@ exports.newNote = async (user_id, title, content) => {
     );
     return result;
   } catch (error) {
+    console.log("Error: ", error);
+  } finally {
+    connection.release();
+  }
+};
+
+exports.updateNote = async (noteId, title, content) => {
+  const connection = await pool.getConnection();
+
+  try {
+    const [result] = await connection.query(
+      "UPDATE notes SET title = ?, content = ? WHERE id = ?;",
+      [title, content, noteId]
+    );
+    return result;
+  } catch(error) {
     console.log("Error: ", error);
   } finally {
     connection.release();

@@ -14,6 +14,7 @@ app.set("views", "views");
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/", auth.verifyToken, async (req, res) => {
@@ -72,6 +73,16 @@ app.post("/signup", async (req, res) => {
 
   if (result) return res.render("new-account-success");
   return res.render("new-account-error");
+});
+
+app.post("/api", auth.verifyToken, async (req, res) => {
+  const data = req.body;
+
+  if (Object.keys(data).length === 3) {
+    await db.updateNote(...Object.values(data));
+  } else {
+    await db.newNote(...Object.values(data));
+  }
 });
 
 app.listen(process.env.APP_PORT, () =>
