@@ -81,6 +81,11 @@ app.post("/signup", async (req, res) => {
   return res.render("new-account-error");
 });
 
+app.delete("/api/:id", auth.verifyToken, async (req, res) => {
+  await db.deleteNote(req.params.id);
+  res.sendStatus(200);
+});
+
 app.post("/api", auth.verifyToken, async (req, res) => {
   const data = req.body;
 

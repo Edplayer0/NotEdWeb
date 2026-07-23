@@ -121,6 +121,22 @@ exports.newNote = async (user_id, title, content) => {
   }
 };
 
+exports.deleteNote = async (noteId) => {
+  const connection = await pool.getConnection();
+
+  try {
+    const [result] = await connection.query(
+      "DELETE FROM notes WHERE id = ?;",
+      [noteId]
+    );
+    return result;
+  } catch(error) {
+    console.log("Error: ", error);
+  } finally {
+    connection.release();
+  }
+};
+
 exports.updateNote = async (noteId, title, content) => {
   const connection = await pool.getConnection();
 
