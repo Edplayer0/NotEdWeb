@@ -34,6 +34,10 @@ app.get("/features", (req, res) => {
   res.render("index", { account: false });
 });
 
+app.get("/editor", auth.verifyToken, (req, res) => {
+  res.render("editor", { note: {} });
+});
+
 app.get("/editor/:id", auth.verifyToken, async (req, res) => {
   const id = req.params.id;
 
@@ -44,13 +48,15 @@ app.get("/editor/:id", auth.verifyToken, async (req, res) => {
 
 app.post("/signin", async (req, res) => {
   const data = req.body;
-  const authenticated = await auth.verifyUser(data);
 
-  if (authenticated) {
+  // may be false or user's id
+  const userId = await auth.verifyUser(data);
+
+  if (userId) {
     const expiration = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
     const token = crypto.randomBytes(32).toString("hex");
 
-    await db.setSession(data.user, token, expiration);
+    await db.setSession(userId, token, expiration);
 
     const options = {
       httpOnly: true,
@@ -58,7 +64,7 @@ app.post("/signin", async (req, res) => {
       sameSite: "lax",
     };
 
-    res.cookie("user", data.user, options);
+    res.cookie("user", userId, options);
     res.cookie("token", token, options);
 
     return res.sendStatus(200);
@@ -78,10 +84,13 @@ app.post("/signup", async (req, res) => {
 app.post("/api", auth.verifyToken, async (req, res) => {
   const data = req.body;
 
-  if (Object.keys(data).length === 3) {
-    await db.updateNote(...Object.values(data));
+  data.userId = req.cookies.user;
+
+  if (data.id) {
+    await db.updateNote(data.id, data.title, data.content);
   } else {
-    await db.newNote(...Object.values(data));
+    const result = await db.newNote(data.userId, data.title, data.content);
+    res.end(result.insertId.toString());
   }
 });
 

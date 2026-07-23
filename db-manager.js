@@ -39,15 +39,10 @@ exports.createUser = async (username, password) => {
   }
 };
 
-exports.setSession = async (username, token, expiration) => {
+exports.setSession = async (userId, token, expiration) => {
   const connection = await pool.getConnection();
 
   try {
-    const userId = (
-      await connection.query("SELECT * FROM users WHERE username = ?;", [
-        username,
-      ])
-    )[0][0].id;
     const result = await connection.query(
       "INSERT INTO sessions (user_id, token, expires_at) VALUES (?, ?, ?);",
       [userId, token, expiration]
@@ -60,13 +55,13 @@ exports.setSession = async (username, token, expiration) => {
   }
 };
 
-exports.getSession = async (username) => {
+exports.getSession = async (userId) => {
   const connection = await pool.getConnection();
 
   try {
     const [result] = await connection.query(
-      "SELECT s.id, s.token, s.expires_at FROM sessions as s JOIN users as u ON s.user_id = u.id WHERE u.username = ? ORDER BY s.id DESC;",
-      [username]
+      "SELECT * FROM sessions WHERE user_id = ?;",
+      [userId]
     );
     return result;
   } catch (error) {
@@ -76,13 +71,13 @@ exports.getSession = async (username) => {
   }
 };
 
-exports.getNotes = async (username) => {
+exports.getNotes = async (userId) => {
   const connection = await pool.getConnection();
 
   try {
     const [result] = await connection.query(
-      "SELECT n.id, n.title, DATE_FORMAT(n.date, '%d/%m/%y') as date FROM notes as n JOIN users as u ON n.user_id = u.id WHERE u.username = ? ORDER BY n.date DESC;",
-      [username]
+      "SELECT id, title, DATE_FORMAT(date, '%d/%m/%y') as date FROM notes WHERE user_id = ?;",
+      [userId]
     );
     return result;
   } catch (error) {
@@ -109,7 +104,7 @@ exports.getNote = async (noteId) => {
 };
 
 exports.newNote = async (user_id, title, content) => {
-  const date = "2026-01-07";
+  const date = new Date();
 
   const connection = await pool.getConnection();
 

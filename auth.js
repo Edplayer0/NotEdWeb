@@ -8,7 +8,7 @@ exports.verifyUser = async (user) => {
 
   let result = await bcrypt.compare(user.password, realUser.password);
 
-  return result;
+  if (result) return realUser.id;
 };
 
 exports.createUser = async (user) => {
